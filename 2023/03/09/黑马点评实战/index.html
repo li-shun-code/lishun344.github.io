@@ -17,29 +17,29 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="黑马点评实战笔记一、概述 短信登录（将session存入redis中） 商户查询缓存（缓存穿透、缓存雪崩、缓存击穿） 优惠券秒杀（分布式锁） 达人探店 好友关注（set集合的应用） 附近的商户（GeoHash） 用户签到（BitMap使用） UV统计（HyperLogLog）   二、短信登录2.1 登录流程 发送验证码流程  前端用手机号做参数发送验证码 后端根据手机号生成对应验证码并且调用第三">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308114237324.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308121015961.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308121713465.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140643126.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140715689.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140815888.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308141008115.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232303431.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232548421.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232645171.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308233405858.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308233442989.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309111953788.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112040580.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112145515.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112402237.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112638415.png">
-<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309113208763.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308114237324.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308121015961.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308121713465.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140643126.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140715689.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140815888.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308141008115.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232303431.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232548421.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232645171.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308233405858.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308233442989.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309111953788.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112040580.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112145515.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112402237.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112638415.png">
+<meta property="og:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309113208763.png">
 <meta property="article:published_time" content="2023-03-09T10:10:40.156Z">
-<meta property="article:modified_time" content="2023-03-09T03:32:26.961Z">
+<meta property="article:modified_time" content="2023-03-09T10:18:00.784Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308114237324.png">
+<meta name="twitter:image" content="http://example.com/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308114237324.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -245,8 +245,8 @@
 <li>用户签到（BitMap使用）</li>
 <li>UV统计（HyperLogLog）</li>
 </ol>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308114237324.png" alt="image-20230308114237324"></p>
-<h1 id="二、短信登录"><a href="#二、短信登录" class="headerlink" title="二、短信登录"></a>二、短信登录</h1><h2 id="2-1-登录流程"><a href="#2-1-登录流程" class="headerlink" title="2.1 登录流程"></a>2.1 登录流程</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308121015961.png" alt="image-20230308121015961"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308114237324.png" alt="image-20230308114237324"></p>
+<h1 id="二、短信登录"><a href="#二、短信登录" class="headerlink" title="二、短信登录"></a>二、短信登录</h1><h2 id="2-1-登录流程"><a href="#2-1-登录流程" class="headerlink" title="2.1 登录流程"></a>2.1 登录流程</h2><p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308121015961.png" alt="image-20230308121015961"></p>
 <p>发送验证码流程</p>
 <ol>
 <li>前端用手机号做参数发送验证码</li>
@@ -287,7 +287,7 @@
 
 
 <h2 id="2-3-登录拦截"><a href="#2-3-登录拦截" class="headerlink" title="2.3 登录拦截"></a>2.3 登录拦截</h2><p>有些接口需要登录才能访问，比我的个人信息，有些不需要登录就能访问，可以通过拦截器进行实现</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308121713465.png" alt="image-20230308121713465"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308121713465.png" alt="image-20230308121713465"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.判断是否需要拦截（ThreadLocal中是否有用户）</span></span><br><span class="line">        <span class="keyword">if</span> (UserHolder.getUser() == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 没有，需要拦截，设置状态码</span></span><br><span class="line">            response.setStatus(<span class="number">401</span>);</span><br><span class="line">            <span class="comment">// 拦截</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 有用户，则放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -305,12 +305,12 @@
 
 
 <h1 id="三、商户查询缓存"><a href="#三、商户查询缓存" class="headerlink" title="三、商户查询缓存"></a>三、商户查询缓存</h1><h2 id="3-1-缓存定义"><a href="#3-1-缓存定义" class="headerlink" title="3.1 缓存定义"></a>3.1 缓存定义</h2><p>缓存就是数据交换的缓冲区（称作Cache [ ke] ])，是存贮数据的临时地方，一般读写性能较高。</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140643126.png" alt="image-20230308140643126"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140643126.png" alt="image-20230308140643126"></p>
 <p>缓存优点与缺点</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140715689.png" alt="image-20230308140715689"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140715689.png" alt="image-20230308140715689"></p>
 <h2 id="3-2-缓存工作流程"><a href="#3-2-缓存工作流程" class="headerlink" title="3.2 缓存工作流程"></a>3.2 缓存工作流程</h2><p>一句话概括：数据库查询太慢了，将一些常用的信息写入到redis中，后续读取数据都从缓存中拿，这样吞吐量快的多</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140815888.png" alt="image-20230308140815888"></p>
-<h2 id="3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）"><a href="#3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）" class="headerlink" title="3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）"></a>3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308141008115.png" alt="image-20230308141008115"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308140815888.png" alt="image-20230308140815888"></p>
+<h2 id="3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）"><a href="#3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）" class="headerlink" title="3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）"></a>3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）</h2><p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308141008115.png" alt="image-20230308141008115"></p>
 <p>将商铺数据以ID缓存在Redis中，后续根据ID查询都从Redis中查询</p>
 <p>缓存步骤：</p>
 <ol>
@@ -318,10 +318,10 @@
 <li>如cache:shop:1表示一号商铺缓存的数据cache:shop:2表示二号商铺缓存的数据</li>
 </ol>
 <h2 id="3-4-双写问题"><a href="#3-4-双写问题" class="headerlink" title="3.4 双写问题"></a>3.4 双写问题</h2><p>缓存更新策略</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232303431.png" alt="image-20230308232303431"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232303431.png" alt="image-20230308232303431"></p>
 <p>主动更新策略</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232548421.png" alt="image-20230308232548421"></p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232645171.png" alt="image-20230308232645171"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232548421.png" alt="image-20230308232548421"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308232645171.png" alt="image-20230308232645171"></p>
 <p>更新数据库再更新缓存：更新完后，缓存在一段时间不用白更新</p>
 <p>删缓存：惰性加载</p>
 <p>数据库和删除缓存问题：</p>
@@ -329,17 +329,17 @@
 <li>先删除缓存再更新数据库：删完缓存后，数据库还没写入进去，后续其他线程又将错的数据写入到Redis中了，不可取</li>
 <li>先更新数据库再删除缓存：可行</li>
 </ol>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308233405858.png" alt="image-20230308233405858"></p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308233442989.png" alt="image-20230308233442989"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308233405858.png" alt="image-20230308233405858"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230308233442989.png" alt="image-20230308233442989"></p>
 <h2 id="3-5-缓存穿透问题"><a href="#3-5-缓存穿透问题" class="headerlink" title="3.5 缓存穿透问题"></a>3.5 缓存穿透问题</h2><p>缓存穿透问题：假设某个恶意用户拿不存在的ID调接口去Redis中取数据，Redis自然没有数据，去数据库查也没有，照成大量请求都直接查库，造成数据库压力过大</p>
 <p>解决：</p>
 <ol>
 <li>布隆过滤器（原理以及实战后面补上）：就是将不符合规则的ID进行过滤，不去Redis中查询</li>
 <li>向Redis缓存空值：redis查询，没有，再去数据库查，也没有，然后再去把这个key给Redis缓存一个空值，并加上过期时间，后续用这个key请求就会直接从Redis中查询到一个空值（不是null，就证明这是不存在的key了，直接给前端返回空值）给前端（但这样黑客可以造n多个不存在的key，还不是一样）</li>
 </ol>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309111953788.png" alt="image-20230309111953788"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309111953788.png" alt="image-20230309111953788"></p>
 <p>缓存null值解决缓存穿透方案</p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112040580.png" alt="image-20230309112040580"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112040580.png" alt="image-20230309112040580"></p>
 <p>null值缓存击穿代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryById</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="comment">// 解决缓存穿透</span></span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> cacheClient</span><br><span class="line">        .queryWithPassThrough(CACHE_SHOP_KEY, id, Shop.class, <span class="built_in">this</span>::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);</span><br><span class="line">    <span class="keyword">if</span> (shop == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 7.返回</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -353,10 +353,10 @@
 
 
 
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112145515.png" alt="image-20230309112145515"></p>
-<h2 id="3-5-缓存雪崩"><a href="#3-5-缓存雪崩" class="headerlink" title="3.5 缓存雪崩"></a>3.5 缓存雪崩</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112402237.png" alt="image-20230309112402237"></p>
-<h2 id="3-6-缓存击穿"><a href="#3-6-缓存击穿" class="headerlink" title="3.6 缓存击穿"></a>3.6 缓存击穿</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112638415.png" alt="image-20230309112638415"></p>
-<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309113208763.png" alt="image-20230309113208763"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112145515.png" alt="image-20230309112145515"></p>
+<h2 id="3-5-缓存雪崩"><a href="#3-5-缓存雪崩" class="headerlink" title="3.5 缓存雪崩"></a>3.5 缓存雪崩</h2><p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112402237.png" alt="image-20230309112402237"></p>
+<h2 id="3-6-缓存击穿"><a href="#3-6-缓存击穿" class="headerlink" title="3.6 缓存击穿"></a>3.6 缓存击穿</h2><p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309112638415.png" alt="image-20230309112638415"></p>
+<p><img src="/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets%5Cimage-20230309113208763.png" alt="image-20230309113208763"></p>
 
     
 
