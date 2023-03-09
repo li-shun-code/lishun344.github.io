@@ -6,17 +6,40 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2023 | Hexo</title>
+  <title>Hexo</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
+  <meta name="description" content="黑马点评实战笔记一、概述 短信登录（将session存入redis中） 商户查询缓存（缓存穿透、缓存雪崩、缓存击穿） 优惠券秒杀（分布式锁） 达人探店 好友关注（set集合的应用） 附近的商户（GeoHash） 用户签到（BitMap使用） UV统计（HyperLogLog）   二、短信登录2.1 登录流程 发送验证码流程  前端用手机号做参数发送验证码 后端根据手机号生成对应验证码并且调用第三">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2023/index.html">
+<meta property="og:url" content="http://example.com/2023/03/09/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="黑马点评实战笔记一、概述 短信登录（将session存入redis中） 商户查询缓存（缓存穿透、缓存雪崩、缓存击穿） 优惠券秒杀（分布式锁） 达人探店 好友关注（set集合的应用） 附近的商户（GeoHash） 用户签到（BitMap使用） UV统计（HyperLogLog）   二、短信登录2.1 登录流程 发送验证码流程  前端用手机号做参数发送验证码 后端根据手机号生成对应验证码并且调用第三">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308114237324.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308121015961.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308121713465.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140643126.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140715689.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308140815888.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308141008115.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232303431.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232548421.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308232645171.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308233405858.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308233442989.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309111953788.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112040580.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112145515.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112402237.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309112638415.png">
+<meta property="og:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230309113208763.png">
+<meta property="article:published_time" content="2023-03-09T10:10:40.156Z">
+<meta property="article:modified_time" content="2023-03-09T03:32:26.961Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\17946\Desktop\lishun-study-notes\%E4%B8%AD%E9%97%B4%E4%BB%B6\redis\%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0\%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98.assets\image-20230308114237324.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -207,78 +230,297 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-黑马点评实战" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+  <div class="article-entry" itemprop="articleBody">
     
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/03/09/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98/" class="archive-article-date">
-        <time datetime="2023-03-09T10:10:40.156Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-09</time>
-</a>
+    <h1 id="黑马点评实战笔记"><a href="#黑马点评实战笔记" class="headerlink" title="黑马点评实战笔记"></a>黑马点评实战笔记</h1><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><ol>
+<li>短信登录（将session存入redis中）</li>
+<li>商户查询缓存（缓存穿透、缓存雪崩、缓存击穿）</li>
+<li>优惠券秒杀（分布式锁）</li>
+<li>达人探店</li>
+<li>好友关注（set集合的应用）</li>
+<li>附近的商户（GeoHash）</li>
+<li>用户签到（BitMap使用）</li>
+<li>UV统计（HyperLogLog）</li>
+</ol>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308114237324.png" alt="image-20230308114237324"></p>
+<h1 id="二、短信登录"><a href="#二、短信登录" class="headerlink" title="二、短信登录"></a>二、短信登录</h1><h2 id="2-1-登录流程"><a href="#2-1-登录流程" class="headerlink" title="2.1 登录流程"></a>2.1 登录流程</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308121015961.png" alt="image-20230308121015961"></p>
+<p>发送验证码流程</p>
+<ol>
+<li>前端用手机号做参数发送验证码</li>
+<li>后端根据手机号生成对应验证码并且调用第三方服务商进行发送验证码</li>
+<li>以手机号为key，验证码为value将验证码存入redis中以备校验</li>
+</ol>
+<p>登录流程</p>
+<ol>
+<li>前端提交手机号和手机收到的验证码</li>
+<li>校验验证码和手机号是否正确</li>
+<li>查库是否有对应手机号，执行新增用户或者修改用户的逻辑</li>
+</ol>
+<h2 id="2-1-发送验证码实现"><a href="#2-1-发送验证码实现" class="headerlink" title="2.1 发送验证码实现"></a>2.1 发送验证码实现</h2><p>代码如下：</p>
+<p>controller层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 发送手机验证码</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@PostMapping(&quot;code&quot;)</span></span><br><span class="line">   <span class="keyword">public</span> Result <span class="title function_">sendCode</span><span class="params">(<span class="meta">@RequestParam(&quot;phone&quot;)</span> String phone, HttpSession session)</span> &#123;</span><br><span class="line">       <span class="comment">// 发送短信验证码并保存验证码</span></span><br><span class="line">       <span class="keyword">return</span> userService.sendCode(phone, session);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-        </div>
-    	 
 
-        <div class="article-info info-on-right">
+
+<p>service层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>	</span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">sendCode</span><span class="params">(String phone, HttpSession session)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.用正则校验手机号格式</span></span><br><span class="line">    <span class="keyword">if</span> (RegexUtils.isPhoneInvalid(phone)) &#123;</span><br><span class="line">        <span class="comment">// 2.如果不符合，返回错误信息</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;手机号格式错误！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3.符合，生成验证码</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> RandomUtil.randomNumbers(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.保存验证码到 session</span></span><br><span class="line">    stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, code, LOGIN_CODE_TTL, TimeUnit.MINUTES);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.发送验证码</span></span><br><span class="line">    log.debug(<span class="string">&quot;发送短信验证码成功，验证码：&#123;&#125;&quot;</span>, code);</span><br><span class="line">    <span class="comment">// 返回ok</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2-2-校验验证码进行登录实现"><a href="#2-2-校验验证码进行登录实现" class="headerlink" title="2.2 校验验证码进行登录实现"></a>2.2 校验验证码进行登录实现</h2><p>controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 登录功能</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> loginForm 登录参数，包含手机号、验证码；或者手机号、密码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> LoginFormDTO loginForm, HttpSession session)</span>&#123;</span><br><span class="line">    <span class="comment">// 实现登录功能</span></span><br><span class="line">    <span class="keyword">return</span> userService.login(loginForm, session);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">login</span><span class="params">(LoginFormDTO loginForm, HttpSession session)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.校验手机号</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> loginForm.getPhone();</span><br><span class="line">    <span class="keyword">if</span> (RegexUtils.isPhoneInvalid(phone)) &#123;</span><br><span class="line">        <span class="comment">// 2.如果不符合，返回错误信息</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;手机号格式错误！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 3.从redis获取验证码并校验</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">cacheCode</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);</span><br><span class="line">    <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> loginForm.getCode();</span><br><span class="line">    <span class="keyword">if</span> (cacheCode == <span class="literal">null</span> || !cacheCode.equals(code)) &#123;</span><br><span class="line">        <span class="comment">// 不一致，报错</span></span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;验证码错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.一致，根据手机号查询用户 select * from tb_user where phone = ?</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> query().eq(<span class="string">&quot;phone&quot;</span>, phone).one();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.判断用户是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (user == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 6.不存在，创建新用户并保存</span></span><br><span class="line">        user = createUserWithPhone(phone);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7.保存用户信息到 redis中</span></span><br><span class="line">    <span class="comment">// 7.1.随机生成token，作为登录令牌</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> UUID.randomUUID().toString(<span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// 7.2.将User对象转为HashMap存储</span></span><br><span class="line">    <span class="type">UserDTO</span> <span class="variable">userDTO</span> <span class="operator">=</span> BeanUtil.copyProperties(user, UserDTO.class);</span><br><span class="line">    Map&lt;String, Object&gt; userMap = BeanUtil.beanToMap(userDTO, <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(),</span><br><span class="line">                                                     CopyOptions.create()</span><br><span class="line">                                                     .setIgnoreNullValue(<span class="literal">true</span>)</span><br><span class="line">                                                     .setFieldValueEditor((fieldName, fieldValue) -&gt; fieldValue.toString()));</span><br><span class="line">    <span class="comment">// 7.3.存储</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">tokenKey</span> <span class="operator">=</span> LOGIN_USER_KEY + token;</span><br><span class="line">    stringRedisTemplate.opsForHash().putAll(tokenKey, userMap);</span><br><span class="line">    <span class="comment">// 7.4.设置token有效期</span></span><br><span class="line">    stringRedisTemplate.expire(tokenKey, LOGIN_USER_TTL, TimeUnit.MINUTES);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 8.返回token</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(token);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="2-3-登录拦截"><a href="#2-3-登录拦截" class="headerlink" title="2.3 登录拦截"></a>2.3 登录拦截</h2><p>有些接口需要登录才能访问，比我的个人信息，有些不需要登录就能访问，可以通过拦截器进行实现</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308121713465.png" alt="image-20230308121713465"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.判断是否需要拦截（ThreadLocal中是否有用户）</span></span><br><span class="line">        <span class="keyword">if</span> (UserHolder.getUser() == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 没有，需要拦截，设置状态码</span></span><br><span class="line">            response.setStatus(<span class="number">401</span>);</span><br><span class="line">            <span class="comment">// 拦截</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 有用户，则放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RefreshTokenInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RefreshTokenInterceptor</span><span class="params">(StringRedisTemplate stringRedisTemplate)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.stringRedisTemplate = stringRedisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 1.获取请求头中的token</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;authorization&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (StrUtil.isBlank(token)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 2.基于TOKEN获取redis中的用户</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span>  <span class="operator">=</span> LOGIN_USER_KEY + token;</span><br><span class="line">        Map&lt;Object, Object&gt; userMap = stringRedisTemplate.opsForHash().entries(key);</span><br><span class="line">        <span class="comment">// 3.判断用户是否存在</span></span><br><span class="line">        <span class="keyword">if</span> (userMap.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 5.将查询到的hash数据转为UserDTO</span></span><br><span class="line">        <span class="type">UserDTO</span> <span class="variable">userDTO</span> <span class="operator">=</span> BeanUtil.fillBeanWithMap(userMap, <span class="keyword">new</span> <span class="title class_">UserDTO</span>(), <span class="literal">false</span>);</span><br><span class="line">        <span class="comment">// 6.存在，保存用户信息到 ThreadLocal</span></span><br><span class="line">        UserHolder.saveUser(userDTO);</span><br><span class="line">        <span class="comment">// 7.刷新token有效期</span></span><br><span class="line">        stringRedisTemplate.expire(key, LOGIN_USER_TTL, TimeUnit.MINUTES);</span><br><span class="line">        <span class="comment">// 8.放行</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 移除用户</span></span><br><span class="line">        UserHolder.removeUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserHolder</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;UserDTO&gt; tl = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">saveUser</span><span class="params">(UserDTO user)</span>&#123;</span><br><span class="line">        tl.set(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> UserDTO <span class="title function_">getUser</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> tl.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">removeUser</span><span class="params">()</span>&#123;</span><br><span class="line">        tl.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="三、商户查询缓存"><a href="#三、商户查询缓存" class="headerlink" title="三、商户查询缓存"></a>三、商户查询缓存</h1><h2 id="3-1-缓存定义"><a href="#3-1-缓存定义" class="headerlink" title="3.1 缓存定义"></a>3.1 缓存定义</h2><p>缓存就是数据交换的缓冲区（称作Cache [ ke] ])，是存贮数据的临时地方，一般读写性能较高。</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140643126.png" alt="image-20230308140643126"></p>
+<p>缓存优点与缺点</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140715689.png" alt="image-20230308140715689"></p>
+<h2 id="3-2-缓存工作流程"><a href="#3-2-缓存工作流程" class="headerlink" title="3.2 缓存工作流程"></a>3.2 缓存工作流程</h2><p>一句话概括：数据库查询太慢了，将一些常用的信息写入到redis中，后续读取数据都从缓存中拿，这样吞吐量快的多</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308140815888.png" alt="image-20230308140815888"></p>
+<h2 id="3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）"><a href="#3-3-商户缓存实现（典型的缓存穿透场景，不存在的key）" class="headerlink" title="3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）"></a>3.3 商户缓存实现（典型的缓存穿透场景，不存在的key）</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308141008115.png" alt="image-20230308141008115"></p>
+<p>将商铺数据以ID缓存在Redis中，后续根据ID查询都从Redis中查询</p>
+<p>缓存步骤：</p>
+<ol>
+<li>以相同前缀加上ID组成key，vlue为商铺数据</li>
+<li>如cache:shop:1表示一号商铺缓存的数据cache:shop:2表示二号商铺缓存的数据</li>
+</ol>
+<h2 id="3-4-双写问题"><a href="#3-4-双写问题" class="headerlink" title="3.4 双写问题"></a>3.4 双写问题</h2><p>缓存更新策略</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232303431.png" alt="image-20230308232303431"></p>
+<p>主动更新策略</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232548421.png" alt="image-20230308232548421"></p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308232645171.png" alt="image-20230308232645171"></p>
+<p>更新数据库再更新缓存：更新完后，缓存在一段时间不用白更新</p>
+<p>删缓存：惰性加载</p>
+<p>数据库和删除缓存问题：</p>
+<ol>
+<li>先删除缓存再更新数据库：删完缓存后，数据库还没写入进去，后续其他线程又将错的数据写入到Redis中了，不可取</li>
+<li>先更新数据库再删除缓存：可行</li>
+</ol>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308233405858.png" alt="image-20230308233405858"></p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230308233442989.png" alt="image-20230308233442989"></p>
+<h2 id="3-5-缓存穿透问题"><a href="#3-5-缓存穿透问题" class="headerlink" title="3.5 缓存穿透问题"></a>3.5 缓存穿透问题</h2><p>缓存穿透问题：假设某个恶意用户拿不存在的ID调接口去Redis中取数据，Redis自然没有数据，去数据库查也没有，照成大量请求都直接查库，造成数据库压力过大</p>
+<p>解决：</p>
+<ol>
+<li>布隆过滤器（原理以及实战后面补上）：就是将不符合规则的ID进行过滤，不去Redis中查询</li>
+<li>向Redis缓存空值：redis查询，没有，再去数据库查，也没有，然后再去把这个key给Redis缓存一个空值，并加上过期时间，后续用这个key请求就会直接从Redis中查询到一个空值（不是null，就证明这是不存在的key了，直接给前端返回空值）给前端（但这样黑客可以造n多个不存在的key，还不是一样）</li>
+</ol>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309111953788.png" alt="image-20230309111953788"></p>
+<p>缓存null值解决缓存穿透方案</p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112040580.png" alt="image-20230309112040580"></p>
+<p>null值缓存击穿代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryById</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">    <span class="comment">// 解决缓存穿透</span></span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> cacheClient</span><br><span class="line">        .queryWithPassThrough(CACHE_SHOP_KEY, id, Shop.class, <span class="built_in">this</span>::getById, CACHE_SHOP_TTL, TimeUnit.MINUTES);</span><br><span class="line">    <span class="keyword">if</span> (shop == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 7.返回</span></span><br><span class="line">    <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 缓存穿透解决方法封装，向redis缓存空值</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> keyPrefix redisKey前缀</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> id 查询参数ID</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> type  返回类型</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> dbFallback 数据库查询逻辑函数</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> time 缓存过期时间</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> unit 时间单位</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> &lt;R&gt;</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> &lt;ID&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> &lt;R,ID&gt; R <span class="title function_">queryWithPassThrough</span><span class="params">(String keyPrefix, ID id, Class&lt;R&gt; type, Function&lt;ID, R&gt; dbFallback, Long time, TimeUnit unit)</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> keyPrefix + id;</span><br><span class="line">    <span class="comment">// 1.从redis查询商铺缓存</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">json</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line">    <span class="comment">// 2.判断是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (StrUtil.isNotBlank(json)) &#123;</span><br><span class="line">        <span class="comment">// 3.存在，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> JSONUtil.toBean(json, type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断命中的是否是空值</span></span><br><span class="line">    <span class="keyword">if</span> (json != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 返回一个错误信息</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.不存在，根据id查询数据库</span></span><br><span class="line">    <span class="type">R</span> <span class="variable">r</span> <span class="operator">=</span> dbFallback.apply(id);</span><br><span class="line">    <span class="comment">// 5.不存在，返回错误</span></span><br><span class="line">    <span class="keyword">if</span> (r == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 将空值写入redis</span></span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, <span class="string">&quot;&quot;</span>, CACHE_NULL_TTL, TimeUnit.MINUTES);</span><br><span class="line">        <span class="comment">// 返回错误信息</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 6.存在，写入redis</span></span><br><span class="line">    <span class="built_in">this</span>.set(key, r, time, unit);</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112145515.png" alt="image-20230309112145515"></p>
+<h2 id="3-5-缓存雪崩"><a href="#3-5-缓存雪崩" class="headerlink" title="3.5 缓存雪崩"></a>3.5 缓存雪崩</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112402237.png" alt="image-20230309112402237"></p>
+<h2 id="3-6-缓存击穿"><a href="#3-6-缓存击穿" class="headerlink" title="3.6 缓存击穿"></a>3.6 缓存击穿</h2><p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309112638415.png" alt="image-20230309112638415"></p>
+<p><img src="C:\Users\17946\Desktop\lishun-study-notes\中间件\redis\实战笔记\黑马点评实战.assets\image-20230309113208763.png" alt="image-20230309113208763"></p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/weixin.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          John Doe
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://example.com/2023/03/09/黑马点评实战/" title="" target="_blank">http://example.com/2023/03/09/黑马点评实战/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/03/09/%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84%E5%AE%9E%E6%88%98/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/03/09/hello-world/" class="archive-article-date">
-        <time datetime="2023-03-09T03:42:42.640Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-09</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2023/03/09/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/03/09/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -319,8 +561,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
